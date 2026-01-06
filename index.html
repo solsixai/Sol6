@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOL6</title>
+  <style>
+    /* --- Base Reset & Typography --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* --- Main Layout --- */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 40px 8vw;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      letter-spacing: 0.3em;
+      font-weight: 600;
+      margin-left: 0.3em;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* --- The Vortex (Evolving Light) --- */
+    .vortex-container {
+        margin: 40px 0;
+        position: relative;
+        width: 180px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 2s ease-in-out;
+    }
+
+    .swirl-layer {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      /* Start pure white and subtle */
+      background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.5) 15%,
+        transparent 30%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 70%,
+        rgba(255, 255, 255, 0.4) 90%
+      );
+      filter: blur(12px); 
+      animation: spin 20s linear infinite;
+      opacity: 0.5;
+      transition: filter 2s, opacity 2s;
+    }
+
+    /* Color Shift Class - Triggered by JS */
+    .vortex-container.supernova .swirl-layer {
+        animation: spin 5s linear infinite, colorCycle 8s linear infinite;
+        filter: blur(18px);
+        opacity: 0.8;
+    }
+
+    .ai-core {
+      position: relative;
+      z-index: 5;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #000;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      transition: box-shadow 2s;
+    }
+
+    .vortex-container.supernova .ai-core {
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+    }
+
+    /* --- Star Burst Effect --- */
+    .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #fff;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 100;
+    }
+
+    /* --- Animations --- */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes colorCycle {
+        0% { filter: hue-rotate(0deg) blur(18px); }
+        100% { filter: hue-rotate(360deg) blur(18px); }
+    }
+
+    @keyframes supernovaBurst {
+        0% { transform: translate(0, 0) scale(0); opacity: 0; }
+        5% { opacity: 1; transform: translate(0, 0) scale(1.5); }
+        100% { transform: translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
+    }
+
+    /* --- Content --- */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .youtube {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      opacity: 0.5;
+      color: inherit;
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      transition: 0.3s;
+      margin-bottom: 30px;
+    }
+
+    .youtube:hover { opacity: 1; border-color: #fff; }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .menu strong {
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom: 12px;
+      opacity: 0.4;
+      text-transform: uppercase;
+    }
+
+    .services-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .services-list li { opacity: 0.7; font-weight: 300; }
+
+    .contact-link {
+        color: inherit;
+        text-decoration: none;
+        opacity: 0.5;
+        border-bottom: 1px dotted rgba(255,255,255,0.3);
+    }
+
+    footer {
+      padding: 40px 0;
+      font-size: 0.7rem;
+      opacity: 0.3;
+      letter-spacing: 0.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <header>
+      <h1>SOL6</h1>
+      <div class="tagline">Past the present the future</div>
+    </header>
+
+    <div class="vortex-container" id="vortex">
+        <div class="swirl-layer"></div>
+        <div class="ai-core"></div>
+    </div>
+
+    <div class="content-area">
+      <a href="https://youtube.com/@Sol6-r8c" target="_blank" rel="noopener" class="youtube">
+        YouTube · @Sol6-r8c
+      </a>
+
+      <div class="menu">
+        <div>
+            <strong>About Us</strong>
+            <p style="max-width: 540px; margin: 0 auto; opacity: 0.8;">
+              In collaboration with SOL6, we emerged in 2026—amid the rise of AI—with a singular mission: to transform the past, redefine the present, and shape the future of how the digital world creates meaningful impact.
+            </p>
+        </div>
+
+        <div>
+            <strong>Services</strong>
+            <ul class="services-list">
+              <li>YouTube Channel Creation</li>
+              <li>Podcasting</li>
+              <li>Digital Advertising</li>
+              <li>Premium AI Prompts</li>
+            </ul>
+        </div>
+        
+        <div>
+           <a href="mailto:solsix.ai@gmail.com" class="contact-link">solsix.ai@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © SOL6 — Sentient Systems
+  </footer>
+
+  <script>
+    // The Supernova Event logic
+    setTimeout(() => {
+        const vortex = document.getElementById('vortex');
+        
+        // 1. Activate Supernova visuals (Color shift and faster spin)
+        vortex.classList.add('supernova');
+        
+        // 2. Trigger the Star Burst
+        const starCount = 12; // A full burst of stars
+        
+        for (let i = 0; i < starCount; i++) {
+            createStar(vortex, i);
+        }
+        
+    }, 60000); // Trigger at 1 minute (60,000ms)
+
+    function createStar(parent, index) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Calculate random explosive trajectory
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 150 + Math.random() * 250;
+        const tx = Math.cos(angle) * velocity + 'px';
+        const ty = Math.sin(angle) * velocity + 'px';
+        
+        star.style.setProperty('--tx', tx);
+        star.style.setProperty('--ty', ty);
+        
+        // Randomize size slightly for nature-like variety
+        const size = 2 + Math.random() * 3 + 'px';
+        star.style.width = size;
+        star.style.height = size;
+
+        // Apply burst animation with staggered start
+        star.style.animation = `supernovaBurst ${5 + Math.random() * 5}s cubic-bezier(0.1, 0.8, 0.3, 1) forwards`;
+        star.style.animationDelay = `${index * 0.2}s`;
+        
+        parent.appendChild(star);
+        
+        // Clean up stars after they fade
+        setTimeout(() => star.remove(), 10000);
+    }
+  </script>
+
+</body>
+</html>
