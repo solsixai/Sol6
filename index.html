@@ -3,190 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOL6</title>
-    <!-- Futuristic Font: Orbitron -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>SOL6 | Digital Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #000;
-            color: #fff;
-            font-family: 'Orbitron', system-ui, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            line-height: 1.5;
+            background: #000; color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh; display: flex; flex-direction: column;
+            overflow-x: hidden; align-items: center;
         }
         
-        /* SOL6 Heading - Light & Futuristic */
         .header {
-            text-align: center;
-            padding: 4rem 0 2rem;
-            font-size: 3.8rem;
-            font-weight: 300; /* Less bold */
-            letter-spacing: 0.25rem;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+            text-align: center; padding: 4rem 0 1rem;
+            font-size: clamp(2rem, 8vw, 3.8rem);
+            font-weight: 300; letter-spacing: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
         }
-        
-        /* Futuristic Ring */
+
         .ring-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 2.5rem;
+            position: relative; width: 300px; height: 300px;
+            margin: 2rem auto; display: flex; align-items: center; justify-content: center;
         }
-        
+
         .ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            border: 2px solid rgba(255, 255, 255, 0.95);
+            position: absolute; width: 80%; height: 80%;
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            box-shadow: 
-                0 0 20px rgba(255, 255, 255, 0.8),
-                0 0 40px rgba(255, 255, 255, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.7);
-            animation: pulse 5s infinite alternate ease-in-out;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.2);
+            animation: pulse 4s infinite ease-in-out;
         }
-        
-        /* Sparks */
-        .sparks {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
+
         .spark {
-            position: absolute;
-            width: 2.8px;
-            height: 2.8px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 8px 1.5px #fff;
-            opacity: 0;
+            position: absolute; background: #fff; border-radius: 50%;
+            opacity: 0; filter: blur(0.5px);
         }
-        
-        /* Welcome Text */
+
         .welcome {
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto 3rem;
-            padding: 0 1.5rem;
-            font-size: 1.35rem;
-            font-weight: 300;
-            letter-spacing: 0.08rem;
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.7;
+            text-align: center; max-width: 800px; padding: 0 2rem;
+            font-size: clamp(1rem, 4vw, 1.25rem); font-weight: 300;
+            line-height: 1.8; color: rgba(255, 255, 255, 0.8);
         }
-        
-        /* Glassmorphism Footer */
-        .footer {
-            margin-top: auto;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            background: rgba(10, 10, 15, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            font-size: 0.95rem;
-            letter-spacing: 0.08rem;
-            color: rgba(255, 255, 255, 0.85);
-        }
-        
-        .footer a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            margin: 0 8px;
-        }
-        
-        .footer a:hover {
-            color: #fff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-        }
-        
-        /* Animations */
+
         @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.96); }
-            100% { transform: translate(-50%, -50%) scale(1.02); }
+            0%, 100% { transform: scale(0.98); opacity: 0.7; }
+            50% { transform: scale(1.02); opacity: 1; }
         }
-        
-        @keyframes sparkFade {
-            0% { opacity: 0; transform: scale(0.6); }
-            15% { opacity: 1; }
-            100% { opacity: 0; transform: scale(1.6); }
+
+        @keyframes starTwinkle {
+            0% { transform: rotate(var(--angle)) translateX(110px) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: rotate(var(--angle)) translateX(140px) scale(1); opacity: 0; }
         }
-        
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header { 
-                font-size: 2.4rem; 
-                padding: 3rem 0 1.5rem; 
-                letter-spacing: 0.15rem;
-            }
-            .ring-container { width: 230px; height: 230px; }
-            .welcome { 
-                font-size: 1.15rem; 
-                padding: 0 1.2rem;
-                letter-spacing: 0.05rem;
-            }
-            .footer { font-size: 0.85rem; padding: 1.8rem 1rem; }
+
+        .footer {
+            margin-top: auto; padding: 2rem; text-align: center;
+            width: 100%; background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem; letter-spacing: 1px;
         }
+        .footer a { color: #fff; text-decoration: none; margin: 0 10px; opacity: 0.6; }
+        .footer a:hover { opacity: 1; }
+
+        @media (max-width: 600px) { .ring-container { width: 240px; height: 240px; } }
     </style>
 </head>
 <body>
+
     <h1 class="header">SOL6</h1>
     
-    <div class="ring-container">
+    <div class="ring-container" id="sparks-hub">
         <div class="ring"></div>
-        <div class="sparks" id="sparks"></div>
     </div>
     
     <div class="welcome">
-        Welcome to SOL6<br>
-        Creating the past, present and future for you in your digital space
+        Creating your digital world:<br>
+        <strong>from the past, through the present, into the future.</strong>
     </div>
     
     <footer class="footer">
-        SOL6 - 2026<br>
-        <a href="mailto:sol6.ai@gmail.com">sol6.ai@gmail.com</a> |
-        <a href="https://youtube.com/@sol6" target="_blank" rel="noopener">youtube.com/@sol6</a>
+        SOL6 - 2026 | 
+        <a href="mailto:sol6.ai@gmail.com">Contact</a> |
+        <a href="https://youtube.com/@sol6" target="_blank">YouTube</a>
     </footer>
 
     <script>
-        // Generate circular sparks
-        const sparksContainer = document.getElementById('sparks');
-        const sparkCount = 36;
-        const radius = 140;
+        const hub = document.getElementById('sparks-hub');
+        const count = 80; // More particles for "high detail"
 
-        for (let i = 0; i < sparkCount; i++) {
-            const spark = document.createElement('div');
-            spark.classList.add('spark');
+        for (let i = 0; i < count; i++) {
+            const s = document.createElement('div');
+            s.className = 'spark';
+            const size = Math.random() * 2 + 1 + 'px';
+            s.style.width = size;
+            s.style.height = size;
             
-            const angle = (i / sparkCount) * Math.PI * 2;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
+            s.style.setProperty('--angle', `${Math.random() * 360}deg`);
+            const duration = Math.random() * 2 + 2 + 's';
+            const delay = Math.random() * 4 + 's';
             
-            spark.style.left = `calc(50% + ${x}px)`;
-            spark.style.top = `calc(50% + ${y}px)`;
-            
-            const delay = Math.random() * 5;
-            spark.style.animation = `sparkFade 2.2s ${delay}s infinite`;
-            
-            sparksContainer.appendChild(spark);
+            s.style.animation = `starTwinkle ${duration} ${delay} infinite linear`;
+            hub.appendChild(s);
         }
     </script>
 </body>
